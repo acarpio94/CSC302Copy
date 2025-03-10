@@ -1,0 +1,37 @@
+filename = '/content/drive/MyDrive/DATA/lego_setsHB.csv'
+price = {}
+difficulty = {}
+
+
+with open(filename, 'r', encoding='utf-8') as fl:
+    next(fl) 
+    counter = 0
+
+    for line in fl:
+        tokens = line.strip().split(',')  
+
+       
+        try:
+            prod_id = tokens[4]  
+            list_price = float(tokens[0])  
+            review_difficulty = tokens[5] 
+
+
+            price[prod_id] = list_price
+            difficulty[prod_id] = review_difficulty
+
+            counter += 1
+            if counter >= 1000:  
+                break
+
+        except (IndexError, ValueError):
+           
+            continue
+
+
+price_sample = {k: price[k] for k in list(price)[:10]}
+difficulty_sample = {k: difficulty[k] for k in list(difficulty)[:10]}
+
+
+for key in price_sample.keys():
+    print(key, price_sample[key], difficulty_sample[key])
